@@ -6,6 +6,7 @@ module.exports.getCookie = () => {
         var options = {
             'method': 'GET',
             'url': Config.baseUrl,
+            'encoding': "latin1",
             'headers': {
                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0',
                 'Accept': '*/*',
@@ -40,6 +41,7 @@ module.exports.loginRequest = (username, password) => {
             var options = {
                 'method': 'POST',
                 'url': Config.loginUrl,
+                'encoding': "latin1",
                 'headers': {
                     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0',
                     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -69,6 +71,7 @@ module.exports.getHTML = (url, referer) => {
         var options = {
             'method': 'GET',
             'url': url,
+            'encoding': "latin1",
             'headers': {
                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0',
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -114,7 +117,11 @@ module.exports.gtA = (htmlString) => {
 }
 module.exports.parseText = (htmlString) => {
     if (htmlString != null){
-        return htmlString.replace(/(\r\n|\n|\r)/gm,"").trim();
-
+        let fixed = htmlString.replace(/(\r\n|\n|\r)/gm,"").trim();
+        if (fixed.length == 0){
+            return null
+        }else{
+            return fixed
+        }
     }
 }

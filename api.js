@@ -6,7 +6,7 @@ module.exports.login = (username, password) => {
     return new Promise((s, f) => {
         const student = new Student(username, password)
         Config.tempStudent = student
-        tools.loginRequest(student.username, student.password)
+        tools.loginRequest(student.username(), student.password())
             .then((r) => {
                 if (r.includes('Mi perfil')) {
                     s(true)
@@ -57,9 +57,12 @@ module.exports.consultaExpediente = () => {
                         if (consExpHTML.includes('Consulta de Expediente ')) {
                             let all = $('td[class="Campo"]', consExpHTML)
                             Config.tempStudent.studentInfo(all, consExpHTML)
-                            let allCalif = $('table[id="table1"]', consExpHTML).children()[1].children
+                            let allCalif = $('table[id="table1"] td', consExpHTML)//.children()[1].children
                             Config.tempStudent.studentMarks(allCalif)
-                            s(Config.tempStudent)
+                            s({
+                                student: Config.tempStudent.info,
+                                marks: Config.tempStudent.subjects
+                            })
 
                         } else {
                             f("An error had occurred launching 'Consulta expediente'")

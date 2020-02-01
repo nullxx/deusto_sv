@@ -5,8 +5,10 @@ const Subject = require('../cs/subject')
 
 class Student {
     constructor(username, password) {
-        this.username = username;
-        this.password = password;
+        var private_username = username;
+        var private_password = password;
+        this.username = () => { return private_username; }
+        this.password = () => { return private_password; }
         this.fullName = null
         this.nip = null
         this.faculty = null
@@ -23,7 +25,7 @@ class Student {
 
         this.subjects = []
     }
-    get info(){
+    get info() {
         return {
             fullName: this.fullName,
             nip: this.nip,
@@ -40,73 +42,99 @@ class Student {
             censusGroup: this.censusGroup,
         }
     }
-    studentInfo(all, consExpHTML){
+    studentInfo(all, consExpHTML) {
         return new Promise((s, f) => {
-        for (let i = 0; i < all.length; i++) {
-            let tdCampo = tools.parseText($('td[class="Campo"]', consExpHTML)[i].children[0].data)
-            let tdValor = tools.parseText($('td[class="Valor"]', consExpHTML)[i].children[0].data)
-            if (tdCampo == "Apellidos y nombre"){
-                Config.tempStudent.fullName = tdValor
-            }else if (tdCampo == "N.I.P"){
-                Config.tempStudent.nip = tdValor
-            }else if (tdCampo == "DNI"){
-                Config.tempStudent.dni = tdValor
-            }else if (tdCampo == "Rama"){
-                Config.tempStudent.studiesBranch = tdValor
-            }else if (tdCampo == "N.I.A"){
-                Config.tempStudent.nia = tdValor
-            }else if (tdCampo == "Centro"){
-                Config.tempStudent.faculty = tdValor
-            }else if (tdCampo == "Tipo de estudio"){
-                Config.tempStudent.studyType = tdValor
-            }else if (tdCampo == "Estudios"){
-                Config.tempStudent.studies = tdValor
-            }else if (tdCampo == "Plan estudios"){
-                Config.tempStudent.syllabus = tdValor
-            }else if (tdCampo == "Especialidad"){
-                Config.tempStudent.specialty = tdValor
-            }else if (tdCampo == "Estado expediente"){
-                Config.tempStudent.fileStatus = tdValor
-            }else if (tdCampo == "R�gimen de permanencia"){
-                Config.tempStudent.permanency = tdValor
-            }else if (tdCampo == "Grupo censal"){
-                Config.tempStudent.censusGroup = tdValor
-            }
-        }
-        s()
-    })
-    }
-    studentMarks(allCalif){
-        return new Promise((s, f) => {
-
-        for (let i = 0; i < allCalif.length; i++) {
-            let calif = allCalif[i].children
-            if (calif) {
-                try {
-                    let year = null
-                    let code = null
-                    let description = tools.parseText(calif[5].children[0].data)
-                    let credits = tools.parseText(calif[9].children[0].data)
-                    let gr = tools.parseText(calif[11].children[0].data)
-                    let announcement = tools.parseText(calif[13].children[0].data)
-                    let markDescription = tools.parseText(calif[15].children[0].data)
-                    let mark = tools.parseText(calif[19].children[0].data)
-                    let cvl = tools.parseText(calif[21].children[0].data)
-                    let type = tools.parseText(calif[23].children[0].data)
-                    let cycle = tools.parseText(calif[25].children[0].data)
-                    let studiesYear = tools.parseText(calif[27].children[0].data)
-                    let subjectRef = tools.parseText(calif[31].children[0].data)
-                    let observations = tools.parseText(calif[35].children[0].data)
-                    let sem = tools.parseText(calif[37].children[0].data)
-                    Config.tempStudent.subjects.push(new Subject(year, code, description, credits, gr, announcement, markDescription, mark, cvl, type, cycle, studiesYear, subjectRef, observations, sem))
-                } catch (error) {
-                   // f(error)
+            try {
+                for (let i = 0; i < all.length; i++) {
+                    let tdCampo = tools.parseText($('td[class="Campo"]', consExpHTML)[i].children[0].data)
+                    let tdValor = tools.parseText($('td[class="Valor"]', consExpHTML)[i].children[0].data)
+                    if (tdCampo == "Apellidos y nombre") {
+                        Config.tempStudent.fullName = tdValor
+                    } else if (tdCampo == "N.I.P") {
+                        Config.tempStudent.nip = tdValor
+                    } else if (tdCampo == "DNI") {
+                        Config.tempStudent.dni = tdValor
+                    } else if (tdCampo == "Rama") {
+                        Config.tempStudent.studiesBranch = tdValor
+                    } else if (tdCampo == "N.I.A") {
+                        Config.tempStudent.nia = tdValor
+                    } else if (tdCampo == "Centro") {
+                        Config.tempStudent.faculty = tdValor
+                    } else if (tdCampo == "Tipo de estudio") {
+                        Config.tempStudent.studyType = tdValor
+                    } else if (tdCampo == "Estudios") {
+                        Config.tempStudent.studies = tdValor
+                    } else if (tdCampo == "Plan estudios") {
+                        Config.tempStudent.syllabus = tdValor
+                    } else if (tdCampo == "Especialidad") {
+                        Config.tempStudent.specialty = tdValor
+                    } else if (tdCampo == "Estado expediente") {
+                        Config.tempStudent.fileStatus = tdValor
+                    } else if (tdCampo == "R�gimen de permanencia") {
+                        Config.tempStudent.permanency = tdValor
+                    } else if (tdCampo == "Grupo censal") {
+                        Config.tempStudent.censusGroup = tdValor
+                    }
                 }
-
-s()
+            } catch (error) {
+                f(error)
             }
-        }
-    })
+            s()
+        })
+    }
+    studentMarks(allCalif) {
+        return new Promise((s, f) => {
+            var count = 1
+            var subject = new Subject()
+            try {
+                for (let i = 0; i < allCalif.length; i++) {
+                    const element = allCalif[i];
+                    if (i != 0) {
+                        if (element.children.length > 0) {
+                            if (count == 16) {
+                                count = 0
+                                Config.tempStudent.subjects.push(subject)
+                                subject = new Subject()
+                            } else if (count == 1) {
+                                subject.year = tools.parseText(element.children[0].data)
+                            } else if (count == 2) {
+                                subject.code = tools.parseText(element.children[2].data)
+                            } else if (count == 3) {
+                                subject.description = tools.parseText(element.children[0].data)
+                            } else if (count == 4) {
+                                subject.credits = tools.parseText(element.children[0].data)
+                            } else if (count == 5) {
+                                subject.gr = tools.parseText(element.children[0].data)
+                            } else if (count == 6) {
+                                subject.announcement = tools.parseText(element.children[0].data)
+                            } else if (count == 7) {
+                                subject.markDescription = tools.parseText(element.children[0].data)
+                            } else if (count == 8) {
+                                subject.mark = tools.parseText(element.children[0].data)
+                            } else if (count == 9) {
+                                subject.cvl = tools.parseText(element.children[0].data)
+                            } else if (count == 10) {
+                                subject.type = tools.parseText(element.children[0].data)
+                            } else if (count == 11) {
+                                subject.cycle = tools.parseText(element.children[0].data)
+                            } else if (count == 12) {
+                                subject.studiesYear = tools.parseText(element.children[0].data)
+                            } else if (count == 13) {
+                                subject.subjectRef = tools.parseText(element.children[0].data)
+                            } else if (count == 14) {
+                                subject.observations = tools.parseText(element.children[0].data)
+                            } else if (count == 15) {
+                                subject.sem = tools.parseText(element.children[0].data)
+                            }
+                        }
+                        count++
+                    }
+                }
+            } catch (error) {
+                f(error)
+            }
+            s()
+        })
     }
 }
 module.exports = Student

@@ -1,7 +1,7 @@
 
 class Subject {
 
-    constructor(year, code, description, credits, gr, announcement, markDescription, mark, cvl, type, cycle, studiesYear, subjectRef, observations, sem) {
+    constructor(year = null, code = null, description = null, credits = null, gr = null, announcement = null, markDescription = null, mark = null, cvl = null, type = null, cycle = null, studiesYear = null, subjectRef = null, observations = null, sem) {
         this.year = year
         this.code = code
         this.description = description

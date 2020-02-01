@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Secretaría virtual deusto",
   "main": "api.js",
-  "directories": {
-    "example": "example"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,6 +26,5 @@
     "cheerio": "^1.0.0-rc.3",
     "request": "^2.88.0",
     "request-cookies": "^1.1.0"
-  },
-  "devDependencies": {}
+  }
 }
