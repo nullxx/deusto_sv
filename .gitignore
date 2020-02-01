@@ -1,2 +1,4 @@
 node_modules/*
 prueba/*
+.DS_Store
+package-lock.json
