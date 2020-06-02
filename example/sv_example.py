@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import requests as r
 import os
 import json
@@ -38,6 +39,7 @@ print("\nIniciando con: \n\tUsuario: {}\n\tContraseña: {}".format(correo, "*" *
 def main():
     threading.Timer(time_loop, main).start()
     res = r.get("https://deusto.nullx.me/calificaciones.get?u={}&p={}".format(correo, password)).json()
+    print(res)
     if (res["data"] != None):
         if (res["data"]["marks"] != None):
             if (len(res["data"]["marks"]) > 0):
@@ -53,6 +55,7 @@ def main():
                 if(fe and is_json(f)):
                         resq = jsondiff.diff(res["data"]["marks"], json.loads(f))
                         if (resq):
+                            print("aaaa", resq)
                             print("Nuevas notas")
                             for i in resq.keys():
                                 print("----------------------------------")
