@@ -75,9 +75,14 @@ deusto.login(username, password)
 ```
 
 ## Ejemplo
-Descarga la carpeta de `examples/` de este repositorio y correlo de la siguiente forma: 
+Descarga la carpeta de `examples/` de este repositorio: 
 
-	python3 sv_example.py correo@opendeusto.es tu_contraseña
+Para instalar los requerimientos:
+
+	pip install -r requirements.txt
+Para correr el programa:
+
+	python sv_example.py correo@opendeusto.es tu_contraseña
 ## Licencia
 
 Distributed under the MIT License. See `LICENSE` for more information.
