@@ -4,11 +4,9 @@ import json
 import jsondiff
 import threading
 import sys
-
+from time import sleep
 correo = sys.argv[1]
 password = sys.argv[2]
-
-time_loop = 60
 
 def is_json(myjson):
     try:
@@ -18,7 +16,25 @@ def is_json(myjson):
     return True
 
 fileName = "cached.dat"
+time_loop = 60
 
+print("""
+.------------------------------------------.
+|   Deusto Secretaría General v1.0.0       |
+|   More info at: https://deusto.nullx.me  |
+|   Developed by:                          |
+|                _ _                       |
+|    _ __  _   _| | |_  __                 |
+|   | '_ \| | | | | \ \/ /                 |
+|   | | | | |_| | | |>  <                  |
+|   |_| |_|\__,_|_|_/_/\_\\                 |
+.------------------------------------------.
+""")
+
+print("Comprobar calificaciones cada [{}] segundos".format(time_loop))
+print("Guardada información en el archivo [{}]". format(fileName))
+sleep(1)
+print("\nIniciando con: \n\tUsuario: {}\n\tContraseña: {}".format(correo, "*" * len(password)))
 def main():
     threading.Timer(time_loop, main).start()
     res = r.get("https://deusto.nullx.me/calificaciones.get?u={}&p={}".format(correo, password)).json()
