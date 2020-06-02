@@ -9,6 +9,7 @@
 * [Sobre este proyecto](#sobre-este-proyecto)
 * [Uso](#uso)
   * [Instalación](#installation)
+  * [Ejemplo](#ejemplo)
 * [Licencia](#licencia)
 * [Contacto](#contacto)
 
@@ -73,6 +74,10 @@ deusto.login(username, password)
 })
 ```
 
+## Ejemplo
+Descarga la carpeta de `examples/` de este repositorio y correlo de la siguiente forma: 
+
+	python3 sv_example.py correo@opendeusto.es tu_contraseña
 ## Licencia
 
 Distributed under the MIT License. See `LICENSE` for more information.
