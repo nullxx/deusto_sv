@@ -49,8 +49,7 @@ def main():
                         f = file.read()
                 else:
                     f = open(fileName, "w")
-                for i in range(len(res["data"]["marks"])):
-                    pass
+
                 if(fe and is_json(f)):
                         resq = jsondiff.diff(res["data"]["marks"], json.loads(f))
                         if (resq):
