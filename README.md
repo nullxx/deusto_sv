@@ -24,8 +24,7 @@ Este repositorio ha sido creado con fines únicamente educativos. Cualquier uso 
 
 ## Uso
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+El uso de este programa se escapa de mi responsabilidad. Quedará por tanto cualquier uso abusivo de el bajo su propia responsabilidad.
 
 ### Installation
 
@@ -78,11 +77,13 @@ deusto.login(username, password)
 Descarga la carpeta de `examples/` de este repositorio: 
 
 Para instalar los requerimientos:
-
-	pip install -r requirements.txt
+```bash
+pip install -r requirements.txt
+```
 Para correr el programa:
-
-	python sv_example.py correo@opendeusto.es tu_contraseña
+```bash
+python sv_example.py correo@opendeusto.es tu_contraseña
+```
 ## Licencia
 
 Distributed under the MIT License. See `LICENSE` for more information.
