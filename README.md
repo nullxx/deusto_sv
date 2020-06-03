@@ -77,11 +77,11 @@ deusto.login(username, password)
 Descarga la carpeta de `examples/` de este repositorio: 
 
 Para instalar los requerimientos:
-```bash
+```sh
 pip install -r requirements.txt
 ```
 Para correr el programa:
-```bash
+```sh
 python sv_example.py correo@opendeusto.es tu_contraseña
 ```
 ## Licencia
