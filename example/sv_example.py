@@ -53,7 +53,7 @@ def main():
                 if(fe and is_json(f)):
                         resq = jsondiff.diff(res["data"]["marks"], json.loads(f))
                         if (resq):
-                            print("Nuevas notas")
+                            print("Ha habido cambios en las notas :)")
                             for i in resq.keys():
                                 print("----------------------------------")
                                 for e in res["data"]["marks"][i].keys():
