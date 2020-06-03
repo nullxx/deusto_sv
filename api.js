@@ -38,7 +38,7 @@ module.exports.selectApplication = (app) => {
                     }
                 })
             })
-        }else{
+        } else {
             f(`An error occurred launching application: '${app}'. App was not found.`)
         }
 
@@ -76,4 +76,10 @@ module.exports.consultaExpediente = () => {
             })
         })
     })
+}
+
+module.exports.utils = {
+    getCookie: () => {
+        return Config.sessionCookie
+    }
 }

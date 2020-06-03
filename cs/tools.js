@@ -6,12 +6,12 @@ module.exports.getCookie = () => {
         var options = {
             'method': 'GET',
             'url': Config.baseUrl,
-            'encoding': "latin1",
+            'encoding': Config.encoding,
             'headers': {
                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0',
                 'Accept': '*/*',
                 'Cache-Control': 'no-cache',
-                'Host': 'gaude.deusto.es',
+                'Host': Config.origin,
                 'Accept-Encoding': 'gzip, deflate',
                 'Connection': 'keep-alive'
             }
@@ -19,16 +19,16 @@ module.exports.getCookie = () => {
         request(options, function (error, response) {
             if (error) throw new Error(error);
             var rawcookies = response.headers['set-cookie'];
-            var required = null
+            var requiredCookie = null
             for (var i in rawcookies) {
                 var cookie = new Cookie(rawcookies[i]);
                 if (cookie.key == 'JSESSIONID') {
-                    required = cookie.value
+                    requiredCookie = cookie
                 }
             }
-            if (required != null) {
-                s(required)
-                Config.sessionCookie = required
+            if (requiredCookie != null) {
+                s(requiredCookie)
+                Config.sessionCookie = requiredCookie
             } else {
                 f("Cookie is not found")
             }
@@ -41,7 +41,7 @@ module.exports.loginRequest = (username, password) => {
             var options = {
                 'method': 'POST',
                 'url': Config.loginUrl,
-                'encoding': "latin1",
+                'encoding': Config.encoding,
                 'headers': {
                     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0',
                     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -51,7 +51,7 @@ module.exports.loginRequest = (username, password) => {
                     'Connection': 'keep-alive',
                     'Referer': Config.baseUrl,
                     'Upgrade-Insecure-Requests': '1',
-                    'Cookie': 'JSESSIONID=' + cookie
+                    'Cookie': 'JSESSIONID=' + cookie.value
                 },
                 form: {
                     'idUsuario': username,
@@ -71,7 +71,7 @@ module.exports.getHTML = (url, referer) => {
         var options = {
             'method': 'GET',
             'url': url,
-            'encoding': "latin1",
+            'encoding': Config.encoding,
             'headers': {
                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0',
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -81,7 +81,7 @@ module.exports.getHTML = (url, referer) => {
                 'Connection': 'keep-alive',
                 'Referer': referer,
                 'Upgrade-Insecure-Requests': '1',
-                'Cookie': 'JSESSIONID=' + Config.sessionCookie
+                'Cookie': 'JSESSIONID=' + Config.sessionCookie.value
             }
         };
 
@@ -107,20 +107,20 @@ module.exports.gtA = (htmlString) => {
     return new Promise((s, f) => {
         let one = htmlString.split('$("#frameApp").attr("src", "')[1]
         let two = one.split('");')[0]
-        if (two != null){
+        if (two != null) {
             s(two)
-        }else{
+        } else {
             f('Error getting frameURL')
         }
 
     })
 }
 module.exports.parseText = (htmlString) => {
-    if (htmlString != null){
-        let fixed = htmlString.replace(/(\r\n|\n|\r)/gm,"").trim();
-        if (fixed.length == 0){
+    if (htmlString != null) {
+        let fixed = htmlString.replace(/(\r\n|\n|\r)/gm, "").trim();
+        if (fixed.length == 0) {
             return null
-        }else{
+        } else {
             return fixed
         }
     }

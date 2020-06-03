@@ -11,7 +11,7 @@ var sessionCookie = null
 var originHTML = null
 var appHTML = null
 var applicationURL = null
-const encoding = 'ISO-8859-1';
+const encoding = 'latin1';
 module.exports = {
     contrUrl,
     baseUrl,
