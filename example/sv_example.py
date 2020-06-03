@@ -6,6 +6,11 @@ import jsondiff
 import threading
 import sys
 from time import sleep
+
+if (len(sys.argv) != 3):
+    print("\nUsage:\n\t python {} tususuario@opendeusto.es tu_contraseña\n".format(sys.argv[0]))
+    exit(403)
+    
 correo = sys.argv[1]
 password = sys.argv[2]
 
