@@ -10,7 +10,7 @@ from time import sleep
 if (len(sys.argv) != 3):
     print("\nUsage:\n\t python {} tususuario@opendeusto.es tu_contraseña\n".format(sys.argv[0]))
     exit(403)
-    
+
 correo = sys.argv[1]
 password = sys.argv[2]
 
@@ -23,7 +23,7 @@ def is_json(myjson):
 
 fileName = "cached.dat"
 time_loop = 60
-
+print(chr(27) + "[2J") # clear screen
 print("""
 .------------------------------------------.
 |   Deusto Secretaría General v1.0.0       |
