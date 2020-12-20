@@ -37,14 +37,37 @@ print("""
 .------------------------------------------.
 """)
 
+if os.path.exists(fileName):
+    os.remove(fileName)
+
 print("Comprobar calificaciones cada [{}] segundos".format(time_loop))
 print("Guardada información en el archivo [{}]". format(fileName))
 sleep(1)
 print("\nIniciando con: \n\tUsuario: {}\n\tContraseña: {}".format(correo, "*" * len(password)))
+
+inited = False
 def main():
     threading.Timer(time_loop, main).start()
     res = r.get("https://deusto.nullx.me/calificaciones.get?u={}&p={}".format(correo, password)).json()
     if (res["data"] != None):
+        global inited
+        if (inited == False):
+            if (res["data"]["student"] != None):
+                print("----- Datos del estudiante -----")
+                print(f'\tNombre: {res["data"]["student"]["fullName"]}')
+                print(f'\tNIP: {res["data"]["student"]["nip"]}')
+                print(f'\tFacultad: {res["data"]["student"]["faculty"]}')
+                print(f'\tTipo de estudios: {res["data"]["student"]["studyType"]}')
+                print(f'\tCursando: {res["data"]["student"]["syllabus"]}')
+                print(f'\tEstado: {res["data"]["student"]["fileStatus"]}')
+                print(f'\tPermanencia: {res["data"]["student"]["permanency"]}')
+                print(f'\tDNI: {res["data"]["student"]["dni"]}')
+                print(f'\tNIA: {res["data"]["student"]["nia"]}')
+                print(f'\tRama: {res["data"]["student"]["studiesBranch"]}')
+                print(f'\tEstudios: {res["data"]["student"]["studies"]}')
+                print(f'\tEspecialidad: {res["data"]["student"]["specialty"]}')
+                print(f'\tGrupo censal: {res["data"]["student"]["censusGroup"]}')
+                inited = True
         if (res["data"]["marks"] != None):
             if (len(res["data"]["marks"]) > 0):
                 f = None
