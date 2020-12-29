@@ -88,11 +88,8 @@ class Student {
             try {
                 allCalif.each((i, el) => {
                     switch (i % 17) { // 17 columns
-                        case 0:
+                        case 0: // we will ignore first column
                             if (subject == null) {
-                                subject = new Subject()
-                            } else {
-                                Config.tempStudent.subjects.push(subject)
                                 subject = new Subject()
                             }
                             break;
@@ -143,6 +140,8 @@ class Student {
                             break;
                         case 16:
                             subject.sem = tools.parseText($(el).text())
+                            Config.tempStudent.subjects.push(subject)
+                            subject = new Subject()
                             break;
                         default:
                             break;
