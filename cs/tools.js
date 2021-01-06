@@ -28,7 +28,6 @@ module.exports.getCookie = () => {
             }
             if (requiredCookie != null) {
                 s(requiredCookie)
-                Config.sessionCookie = requiredCookie
             } else {
                 f("Cookie is not found")
             }
@@ -70,7 +69,7 @@ module.exports.loginRequest = (student) => {
         })
     })
 }
-module.exports.getHTML = (url, referer) => {
+module.exports.getHTML = (url, referer, sessionCookie) => {
     return new Promise((s, f) => {
         var options = {
             'method': 'GET',
@@ -85,7 +84,7 @@ module.exports.getHTML = (url, referer) => {
                 'Connection': 'keep-alive',
                 'Referer': referer,
                 'Upgrade-Insecure-Requests': '1',
-                'Cookie': 'JSESSIONID=' + Config.sessionCookie.value
+                'Cookie': 'JSESSIONID=' + sessionCookie.value
             }
         };
 
