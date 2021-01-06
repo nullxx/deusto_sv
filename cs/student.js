@@ -42,47 +42,47 @@ class Student {
             censusGroup: this.censusGroup,
         }
     }
-    studentInfo(all, consExpHTML) {
+    studentInfo(all, consExpHTML, student) {
         return new Promise((s, f) => {
             try {
                 for (let i = 0; i < all.length; i++) {
                     let tdCampo = tools.parseText($('td[class="Campo"]', consExpHTML)[i].children[0].data)
                     let tdValor = tools.parseText($('td[class="Valor"]', consExpHTML)[i].children[0].data)
                     if (tdCampo == "Apellidos y nombre") {
-                        Config.tempStudent.fullName = tdValor
+                        student.fullName = tdValor
                     } else if (tdCampo == "N.I.P") {
-                        Config.tempStudent.nip = tdValor
+                        student.nip = tdValor
                     } else if (tdCampo == "DNI") {
-                        Config.tempStudent.dni = tdValor
+                        student.dni = tdValor
                     } else if (tdCampo == "Rama") {
-                        Config.tempStudent.studiesBranch = tdValor
+                        student.studiesBranch = tdValor
                     } else if (tdCampo == "N.I.A") {
-                        Config.tempStudent.nia = tdValor
+                        student.nia = tdValor
                     } else if (tdCampo == "Centro") {
-                        Config.tempStudent.faculty = tdValor
+                        student.faculty = tdValor
                     } else if (tdCampo == "Tipo de estudio") {
-                        Config.tempStudent.studyType = tdValor
+                        student.studyType = tdValor
                     } else if (tdCampo == "Estudios") {
-                        Config.tempStudent.studies = tdValor
+                        student.studies = tdValor
                     } else if (tdCampo == "Plan estudios") {
-                        Config.tempStudent.syllabus = tdValor
+                        student.syllabus = tdValor
                     } else if (tdCampo == "Especialidad") {
-                        Config.tempStudent.specialty = tdValor
+                        student.specialty = tdValor
                     } else if (tdCampo == "Estado expediente") {
-                        Config.tempStudent.fileStatus = tdValor
+                        student.fileStatus = tdValor
                     } else if (tdCampo == "Régimen de permanencia") {
-                        Config.tempStudent.permanency = tdValor
+                        student.permanency = tdValor
                     } else if (tdCampo == "Grupo censal") {
-                        Config.tempStudent.censusGroup = tdValor
+                        student.censusGroup = tdValor
                     }
                 }
             } catch (error) {
                 f(error)
             }
-            s()
+            s(student)
         })
     }
-    studentMarks(allCalif) {
+    studentMarks(allCalif, student) {
         return new Promise((s, f) => {
             var subject;
             try {
@@ -140,7 +140,7 @@ class Student {
                             break;
                         case 16:
                             subject.sem = tools.parseText($(el).text())
-                            Config.tempStudent.subjects.push(subject)
+                            student.subjects.push(subject)
                             subject = new Subject()
                             break;
                         default:
@@ -150,7 +150,7 @@ class Student {
             } catch (error) {
                 f(error)
             }
-            s()
+            s(student)
         })
     }
 }
