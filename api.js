@@ -26,7 +26,7 @@ module.exports.selectApplication = (app, prevInfo) => {
             let launchAppJS = $('div[class="row contenedorBotonera"]', html).children()[selApplication].children[1].attribs.href;
             tools.gtS(launchAppJS).then(partialUrl => {
                 let fullLaunchURL = `${Config.contrUrl}${partialUrl}`
-                Config.applicationURL = fullLaunchURL
+                prevInfo.applicationURL = fullLaunchURL
                 tools.getHTML(fullLaunchURL, Config.baseUrl, prevInfo.cookie).then(html => {
                     prevInfo.appHTML = html;
                     if (html.includes('Inicio')) {
@@ -50,7 +50,7 @@ module.exports.consultaExpediente = (prevInfo) => {
         let openMenuJS = menu[8].children[0].attribs.href
         tools.gtS(openMenuJS).then(partialUrl => {
             let fullopenMenuURL = `${Config.contrUrl}${partialUrl}`
-            tools.getHTML(fullopenMenuURL, Config.applicationURL, prevInfo.cookie).then((a) => {
+            tools.getHTML(fullopenMenuURL, prevInfo.applicationURL, prevInfo.cookie).then((a) => {
                 tools.gtA(a).then(consultaExpJS => {
                     let consultaExpFullURL = `${Config.contrUrl}${consultaExpJS}`
                     tools.getHTML(consultaExpFullURL, undefined, prevInfo.cookie).then(consExpHTML => {
