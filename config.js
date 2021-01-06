@@ -6,22 +6,13 @@ const loginUrl = `${contrUrl}?@d2e9d205e120747b=@a8d11ec374aa5324f5c94b5786369fb
 const applications = {
     gradoMasterDoctorado: 0,
 } // se implementarán más en el futuro
-var tempStudent = null
-var sessionCookie = null
-var originHTML = null
-var appHTML = null
-var applicationURL = null
+
 const encoding = 'latin1';
 module.exports = {
     contrUrl,
     baseUrl,
     originUrl,
     loginUrl,
-    tempStudent,
-    sessionCookie,
-    originHTML,
-    appHTML,
     applications,
-    applicationURL,
     encoding,
 }
