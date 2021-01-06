@@ -91,7 +91,11 @@ module.exports.getHTML = (url, referer) => {
 
         request(options, function (error, response) {
             if (error) f(error);
-            s(response.body)
+            if (response){ 
+                s(response.body);
+            } else {
+                f("No response on request");
+            }
         });
 
     })
