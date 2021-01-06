@@ -35,7 +35,7 @@ module.exports.getCookie = () => {
         });
     })
 }
-module.exports.loginRequest = (username, password) => {
+module.exports.loginRequest = (student) => {
     return new Promise((s, f) => {
         this.getCookie().then(cookie => {
             var options = {
@@ -54,8 +54,8 @@ module.exports.loginRequest = (username, password) => {
                     'Cookie': 'JSESSIONID=' + cookie.value
                 },
                 form: {
-                    'idUsuario': username,
-                    'password': password
+                    'idUsuario': student.username(),
+                    'password': student.password()
                 }
             };
 
