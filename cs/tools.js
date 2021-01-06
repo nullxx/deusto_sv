@@ -61,7 +61,7 @@ module.exports.loginRequest = (student) => {
             request(options, function (error, response) {
                 if (error) f(error);
                 if (response){ 
-                    s(response.body);
+                    s({ html: response.body, cookie });
                 } else {
                     f("No response on request");
                 }
