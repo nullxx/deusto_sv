@@ -50,10 +50,10 @@ const  username  =  "<your_username>";
 const  password  =  "<your_password>";
 
 deusto.login(username, password)
-.then(() => {
-	deusto.selectApplication("gradoMasterDoctorado")
-	.then(() => {
-		deusto.consultaExpediente()
+.then((info) => {
+	deusto.selectApplication("gradoMasterDoctorado", info)
+	.then((info) => {
+		deusto.consultaExpediente(info)
 		.then(result => {
 			console.log(result)
 		})
