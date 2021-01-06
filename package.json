@@ -1,6 +1,6 @@
 {
   "name": "deusto_sv",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Secretaría virtual deusto",
   "main": "api.js",
   "scripts": {
