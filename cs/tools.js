@@ -17,7 +17,7 @@ module.exports.getCookie = () => {
             }
         };
         request(options, function (error, response) {
-            if (error) throw new Error(error);
+            if (error) return rej(error);
             var rawcookies = response.headers['set-cookie'];
             var requiredCookie = null
             for (var i in rawcookies) {
@@ -59,7 +59,7 @@ module.exports.loginRequest = (student) => {
             };
 
             request(options, function (error, response) {
-                if (error) f(error);
+                if (error) return f(error);
                 if (response){ 
                     s({ html: response.body, cookie });
                 } else {
