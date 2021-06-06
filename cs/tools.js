@@ -17,7 +17,7 @@ module.exports.getCookie = () => {
             }
         };
         request(options, function (error, response) {
-            if (error) return rej(error);
+            if (error) return f(error);
             var rawcookies = response.headers['set-cookie'];
             var requiredCookie = null
             for (var i in rawcookies) {
@@ -89,7 +89,7 @@ module.exports.getHTML = (url, referer, sessionCookie) => {
         };
 
         request(options, function (error, response) {
-            if (error) f(error);
+            if (error) return f(error);
             if (response){ 
                 s(response.body);
             } else {
