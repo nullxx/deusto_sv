@@ -1,6 +1,6 @@
 const Student = require('./cs/student')
 const Config = require('./config')
-const $ = require('cheerio');
+const $ = require('cheerio').default;
 const tools = require('./cs/tools')
 module.exports.login = (username, password) => {
     return new Promise((s, f) => {
