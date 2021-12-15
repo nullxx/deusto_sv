@@ -1,6 +1,6 @@
 const Config = require('../config')
 const tools = require('../cs/tools')
-const $ = require('cheerio');
+const $ = require('cheerio').default;
 const Subject = require('../cs/subject')
 
 class Student {
