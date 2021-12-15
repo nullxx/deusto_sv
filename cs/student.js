@@ -87,7 +87,7 @@ class Student {
             var subject;
             try {
                 allCalif.each((i, el) => {
-                    switch (i % 17) { // 17 columns
+                    switch (i % 16) { // 16 columns
                         case 0: // we will ignore first column
                             if (subject == null) {
                                 subject = new Subject()
@@ -132,13 +132,13 @@ class Student {
                         case 13:
                             subject.studiesYear = tools.parseText($(el).text())
                             break;
+                        // case 14:
+                        //     subject.subjectRef = tools.parseText($(el).text())
+                        //     break;
                         case 14:
-                            subject.subjectRef = tools.parseText($(el).text())
-                            break;
-                        case 15:
                             subject.observations = tools.parseText($(el).text())
                             break;
-                        case 16:
+                        case 15:
                             subject.sem = tools.parseText($(el).text())
                             student.subjects.push(subject)
                             subject = new Subject()
