@@ -60,7 +60,7 @@ module.exports.loginRequest = (student) => {
 
             request(options, function (error, response) {
                 if (error) return f(error);
-                if (response){ 
+                if (response) {
                     s({ html: response.body, cookie });
                 } else {
                     f("No response on request");
@@ -90,7 +90,7 @@ module.exports.getHTML = (url, referer, sessionCookie) => {
 
         request(options, function (error, response) {
             if (error) return f(error);
-            if (response){ 
+            if (response) {
                 s(response.body);
             } else {
                 f("No response on request");
@@ -122,12 +122,17 @@ module.exports.gtA = (htmlString) => {
 
     })
 }
+module.exports.isNumeric = (n) => {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
 module.exports.parseText = (htmlString) => {
     if (htmlString != null) {
         let fixed = htmlString.replace(/(\r\n|\n|\r)/gm, "").trim();
         if (fixed.length == 0) {
             return null
         } else {
+            if (this.isNumeric(fixed)) return Number(fixed);
             return fixed
         }
     }

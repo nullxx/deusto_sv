@@ -82,76 +82,83 @@ class Student {
             s(student)
         })
     }
-    studentMarks(allCalif, student) {
-        return new Promise((s, f) => {
-            var subject;
-            try {
-                allCalif.each((i, el) => {
-                    switch (i % 16) { // 16 columns
-                        case 0: // we will ignore first column
-                            if (subject == null) {
-                                subject = new Subject()
-                            }
+    studentMarks(consExpHTML, student) {
+        let subject;
+
+        try {
+            const colCount = $('#table1 > thead > tr > th[class="sort"]', consExpHTML).length;
+            const rowCount = $('#table1 > tbody > tr', consExpHTML).length;
+            for (let j = 0; j < rowCount; j++) {
+
+                subject = new Subject();
+                const row = $('#table1 > tbody > tr:nth-child(' + (j + 1) + ') > td', consExpHTML);
+
+                for (let i = 0; i < colCount; i++) {
+                    const colName = tools.parseText($('#table1 > thead > tr > th[class="sort"]', consExpHTML)[i].children[0].data);
+                    const rowText = tools.parseText($(row[i + 1]).text());
+                    switch (colName) {
+                        case 'Año académ.':
+                            subject.year = rowText;
                             break;
-                        case 1:
-                            subject.year = tools.parseText($(el).text())
+                        case 'Código':
+                            subject.code = rowText;
                             break;
-                        case 2:
-                            subject.code = tools.parseText($(el).text())
+                        case 'Código':
+                            subject.code = rowText;
                             break;
-                        case 3:
-                            subject.description = tools.parseText($(el).text())
+                        case 'Descripción':
+                            subject.description = rowText;
                             break;
-                        case 4:
-                            subject.credits = tools.parseText($(el).text())
+                        case 'Cr.':
+                            subject.credits = rowText;
                             break;
-                        case 5:
-                            subject.gr = tools.parseText($(el).text())
+                        case 'Gr.':
+                            subject.gr = rowText;
                             break;
-                        case 6:
-                            subject.announcement = tools.parseText($(el).text())
+                        case 'Convocatoria':
+                            subject.announcement = rowText;
                             break;
-                        case 7:
-                            subject.markDescription = tools.parseText($(el).text())
+                        case 'Calificación':
+                            subject.markDescription = rowText;
                             break;
-                        case 8:
-                            subject.mark = tools.parseText($(el).text())
+                        case 'C.N.':
+                            subject.mark = rowText;
                             break;
-                        case 9:
-                            subject.wastedCalls = tools.parseText($(el).text())
+                        case 'Conv. agotadas':
+                            subject.wastedCalls = rowText;
                             break;
-                        case 10:
-                            subject.cvl = tools.parseText($(el).text())
+                        case 'Cvl.':
+                            subject.cvl = rowText;
                             break;
-                        case 11:
-                            subject.type = tools.parseText($(el).text())
+                        case 'Tipo Asig.':
+                            subject.type = rowText;
                             break;
-                        case 12:
-                            subject.cycle = tools.parseText($(el).text())
+                        case 'Cic.':
+                            subject.cycle = rowText;
                             break;
-                        case 13:
-                            subject.studiesYear = tools.parseText($(el).text())
+                        case 'Cur.':
+                            subject.studiesYear = rowText;
                             break;
-                        // case 14:
-                        //     subject.subjectRef = tools.parseText($(el).text())
-                        //     break;
-                        case 14:
-                            subject.observations = tools.parseText($(el).text())
+                        case 'Materia':
+                            subject.subjectRef = rowText;
                             break;
-                        case 15:
-                            subject.sem = tools.parseText($(el).text())
-                            student.subjects.push(subject)
-                            subject = new Subject()
+                        case 'Observaciones':
+                            subject.observations = rowText;
+                            break;
+                        case 'Sem.':
+                            subject.sem = rowText;
                             break;
                         default:
                             break;
                     }
-                })
-            } catch (error) {
-                f(error)
+                }
+                student.subjects.push(subject);
             }
-            s(student)
-        })
+        } catch (error) {
+            f(error)
+        }
+
+        return student;
     }
 }
 module.exports = Student

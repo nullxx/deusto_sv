@@ -57,8 +57,7 @@ module.exports.consultaExpediente = (prevInfo) => {
                         if (consExpHTML.includes('Consulta de Expediente ')) {
                             let all = $('td[class="Campo"]', consExpHTML)
                             prevInfo.student.studentInfo(all, consExpHTML, prevInfo.student)
-                            let allCalif = $('#table1 > tbody:nth-child(2) > tr > td', consExpHTML)
-                            prevInfo.student.studentMarks(allCalif, prevInfo.student)
+                            prevInfo.student.studentMarks(consExpHTML, prevInfo.student)
                             s({
                                 student: prevInfo.student.info,
                                 marks: prevInfo.student.subjects
