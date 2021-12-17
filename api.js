@@ -46,8 +46,8 @@ module.exports.consultaExpediente = (prevInfo) => {
     return new Promise((s, f) => {
         let html = prevInfo.appHTML
         let menu = $('ul[id=sidebar]', html).children()
-        let openMENUTitle = menu[8].children[0].children[0].children[0].data
-        let openMenuJS = menu[8].children[0].attribs.href
+        let openMenuJS = menu[9].children[0].attribs.href
+
         tools.gtS(openMenuJS).then(partialUrl => {
             let fullopenMenuURL = `${Config.contrUrl}${partialUrl}`
             tools.getHTML(fullopenMenuURL, prevInfo.applicationURL, prevInfo.cookie).then((a) => {
