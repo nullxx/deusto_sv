@@ -13,6 +13,7 @@
 * [Licencia](#licencia)
 * [Contacto](#contacto)
 
+## ⚠ ESTE PROYECTO ESTÁ SIENDO CONTINUADO CON UN MEJOR SOPORTE EN https://github.com/nullxx/sigma-academic
 ### [Ver documentación](https://github.com/nullxx/deusto_sv/wiki/Documentaci%C3%B3n)
 
 
